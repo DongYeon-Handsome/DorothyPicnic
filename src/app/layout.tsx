@@ -3,6 +3,7 @@
 import Providers from "./Providers";
 import GlobalStyles from "./styles/GlobalStyles";
 import Header from "@/components/organisms/Header";
+import Footer from "@/components/organisms/Footer";
 
 export default function RootLayout(props: React.PropsWithChildren){
   return(
@@ -13,6 +14,7 @@ export default function RootLayout(props: React.PropsWithChildren){
           <GlobalStyles />
           {props.children}
         </Providers>
+        <Footer />
       </body>
     </html>
   )
