@@ -1,11 +1,14 @@
+'use client';
+
 import Providers from "./Providers";
 import GlobalStyles from "./styles/GlobalStyles";
-import React from "react";
+import Header from "@/components/organisms/Header";
 
 export default function RootLayout(props: React.PropsWithChildren){
   return(
     <html>
       <body>
+        <Header />
         <Providers>
           <GlobalStyles />
           {props.children}
