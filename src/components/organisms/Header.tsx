@@ -1,5 +1,6 @@
 "use client";
 import styled from 'styled-components';
+import Logo from '../atoms/Logo';
 
 const HeaderBox = styled.header`
   background-color: #ffffff;
@@ -7,13 +8,7 @@ const HeaderBox = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const Logo = styled.h1`
-  font-size: 1.5rem;
-  color: #000000;
-  cursor: pointer;
-  margin-left: 4rem;
+  box-shadow: 0 5px 5px -5px gray;
 `;
 
 const Nav = styled.nav`
@@ -40,7 +35,7 @@ const Nav = styled.nav`
 export default function Header() {
   return(
     <HeaderBox>
-      <Logo>Dorothy Picnic</Logo>
+      <Logo color='#000000'>Dorothy Picnic</Logo>
       <Nav>
         <ul>
           <li><a href='/'>Menu</a></li>
