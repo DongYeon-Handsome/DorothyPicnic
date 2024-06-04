@@ -5,7 +5,7 @@ const styles = css`
     margin: 0;
     padding: 0;
     background-color: #FFFFFF;
-    display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     min-height: 100vh;
   }
