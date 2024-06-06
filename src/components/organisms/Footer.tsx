@@ -10,7 +10,7 @@ const FooterBox = styled.footer`
   background-color: #000000;
   color: #FFFFFF;
   text-align: center;
-  position: fixed;
+  display: inline-block;
   width: 100%;
   bottom: 0;
 `;
