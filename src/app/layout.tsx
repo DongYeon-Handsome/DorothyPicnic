@@ -1,21 +1,21 @@
 'use client';
 
-import Providers from "./Providers";
 import GlobalStyles from "./styles/GlobalStyles";
-import Header from "@/components/organisms/Header";
-import Footer from "@/components/organisms/Footer";
+import Header from "@/app/components/organisms/Header";
+import Footer from "@/app/components/organisms/Footer";
 
-export default function RootLayout(props: React.PropsWithChildren){
-  return(
+const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
     <html>
+      <head />
       <body>
+        <GlobalStyles />
         <Header />
-        <Providers>
-          <GlobalStyles />
-          {props.children}
-        </Providers>
+        {children}
         <Footer />
       </body>
     </html>
-  )
-}
+  );
+};
+
+export default RootLayout;
