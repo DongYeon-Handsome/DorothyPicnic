@@ -13,7 +13,9 @@ const HeaderBox = styled.header`
   height: 3.5rem;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 5px 5px -5px gray;
+  border: none;
+  border-bottom: 2px solid;
+  border-bottom-color: #E6E6E6;
 `;
 
 const Nav = styled.nav`
