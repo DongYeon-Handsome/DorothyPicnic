@@ -1,9 +1,7 @@
-import Main from "@/pages/Main";
+import Main from "./components/pages/Main";
 
-export default function Home() {
-  return (
-    <>
-      <Main />
-    </>
-  );
+const HomePage: React.FC = () => {
+  return <Main />;
 }
+
+export default HomePage;

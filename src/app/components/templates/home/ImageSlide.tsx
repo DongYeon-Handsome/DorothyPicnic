@@ -4,16 +4,21 @@ import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import Image from "next/image";
-import Sample1 from "../../../../public/Image/Sample1.jpg";
-import Sample2 from "../../../../public/Image/Sample2.jpg";
-import Sample3 from "../../../../public/Image/Sample3.jpg";
-import LeftArrow from "../../../../public/Image/LeftArrow.svg";
-import RightArrow from "../../../../public/Image/RightArrow.svg";
+import Sample1 from "../../../../../public/Image/Sample1.jpg"
+import Sample2 from "../../../../../public/Image/Sample2.jpg";
+import Sample3 from "../../../../../public/Image/Sample3.jpg";
+import LeftArrow from "../../../../../public/Image/LeftArrow.svg";
+import RightArrow from "../../../../../public/Image/RightArrow.svg";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const SliderStyled = styled(Slider)`
+interface SliderProps {
+  $currentSlide?: number;
+  $slideCount?: number;
+}
+
+const SliderStyled = styled(Slider)<SliderProps>`
   position: relative;
   width: 100%;
   margin: 0 auto;
@@ -38,11 +43,6 @@ const NextTo = styled.div`
   right: 3%;
   z-index: 3;
 `
-
-/*const ImageStyled = styled(Image)`
-  position: relative !important;
-  height: unset !important;
-`;*/
 
 export default function ImageSlide(){
   const settings = {

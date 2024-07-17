@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import MenuCard from "@/components/mocules/MenuCard";
+import MenuCard from "@/app/components/mocules/MenuCard";
 
 const BestMenuWrapper = styled.div`
   justify-content: space-between;
