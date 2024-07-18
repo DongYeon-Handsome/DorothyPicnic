@@ -30,6 +30,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: 700;
+  margin-right: 1.5rem;
   &:hover{
     color: #F5A9E1;
     cursor: pointer;
@@ -42,6 +43,7 @@ const Header: React.FC = () => {
       <Logo color='#000000'>DorothyPicnic</Logo>
       <Nav>
         <StyledLink href='/menu'>Menu</StyledLink>
+        <StyledLink href='/order'>Order</StyledLink>
       </Nav>
     </HeaderBox>
   );
