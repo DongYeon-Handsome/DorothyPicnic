@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ImageSlider from "../templates/home/ImageSlide";
 import MenuCard from "../mocules/MenuCard";
 import Button from "../atoms/Button";
+import { useIsClient } from "@/app/hook/hook";
 import Sample1 from '../../../../public/Image/Sample1.jpg';
 import Sample2 from '../../../../public/Image/Sample2.jpg';
 import Sample3 from '../../../../public/Image/Sample3.jpg';
@@ -30,6 +31,7 @@ const Title = styled.h1`
 `;
 
 const OrderView: React.FC = () => {
+  const isClient = useIsClient();
   const images = [
     { src: Sample1, alt: 'Image 1' },
     { src: Sample2, alt: 'Image 2' },
@@ -54,14 +56,16 @@ const OrderView: React.FC = () => {
         />
       </MenuWrapper>
       <Title>직접 구성을 주문해보세요</Title>
-      <Button 
-        width={150} 
-        height={80} 
-        fontSize={30}
-        href="http://pf.kakao.com/_PPcaG"
-      >
-        주문하기 카카오톡
-      </Button>
+      {isClient && (
+        <Button 
+          width={150} 
+          height={80} 
+          fontSize={30}
+          href="http://pf.kakao.com/_PPcaG"
+        >
+          주문하기 카카오톡
+        </Button>
+      )}
     </OrderWrapper>
   )
 }
