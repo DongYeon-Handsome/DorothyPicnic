@@ -8,6 +8,13 @@ import { useIsClient } from "@/app/hook/hook";
 import Sample1 from '../../../../public/Image/Sample1.jpg';
 import Sample2 from '../../../../public/Image/Sample2.jpg';
 import Sample3 from '../../../../public/Image/Sample3.jpg';
+import { useState } from "react";
+import Modals from "../organisms/Modals";
+
+const cards = [
+  { id: 1, title: 'Sample 1', description: 'description 1', price: '16,000won' },
+  { id: 2, title: 'Sample 2', description: 'description 2', price: '18,000won' },
+];
 
 const OrderWrapper = styled.div`
   position: flex;
@@ -31,6 +38,15 @@ const Title = styled.h1`
 `;
 
 const OrderView: React.FC = () => {
+  const [selectedCard, setSelectedCard] = useState<{ title: string; description: string; } | null>(null);
+
+  const handleCardClick = (card: { title: string; description: string }) => {
+    setSelectedCard(card);
+  };
+  const handleCloseModal = () => {
+    setSelectedCard(null);
+  };
+
   const isClient = useIsClient();
   const images = [
     { src: Sample1, alt: 'Image 1' },
@@ -42,18 +58,24 @@ const OrderView: React.FC = () => {
       <ImageSlider images={images}/>
       <Title>Menu</Title>
       <MenuWrapper>
-        <MenuCard 
-          title="Sample 1"
-          description="description 1"
-          price="16,000won"
-          imageUrl="../../../../public/Image/Sample1.jpg"
-        />
-        <MenuCard 
-          title="Sample 2"
-          description="description 2"
-          price="16,000won"
-          imageUrl="../../../../public/Image/Sample2.jpg"
-        />
+        {cards.map((card) => (
+          <MenuCard 
+            key={card.id}
+            title={card.title}
+            description={card.description}
+            price={card.price}
+            imageUrl={""}
+            onClick={() => handleCardClick(card)}        
+          />
+        ))}
+        {selectedCard && (
+          <Modals
+            isOpen={!!selectedCard}
+            title={selectedCard.title}
+            description={selectedCard.description}
+            onClose={handleCloseModal}
+          />
+        )}
       </MenuWrapper>
       <Title>직접 구성을 주문해보세요</Title>
       {isClient && (
