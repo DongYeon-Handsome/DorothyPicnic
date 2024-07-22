@@ -6,9 +6,10 @@ interface MenuCardProps {
   description: string;
   price: string;
   imageUrl: string;
+  onClick: () => void;
 }
 
-const MenuCardBox = styled.div`
+const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 18rem;
@@ -39,14 +40,14 @@ const Price = styled.p`
   font-weight: bold;
 `;
 
-const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageUrl }) => {
+const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageUrl, onClick }) => {
   return(
-    <MenuCardBox>
+    <CardContainer onClick={onClick}>
       <Image src={imageUrl} alt={title}/>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <Price>{price}</Price>
-    </MenuCardBox>
+    </CardContainer>
   )
 }
 
