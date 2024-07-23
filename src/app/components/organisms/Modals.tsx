@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import ModalHeader from "../mocules/ModalHeader";
+import Image, { StaticImageData } from "next/image";
 
 interface ModalProps {
   isOpen: boolean;
   title: string;
   description: string;
-  //children: React.ReactNode;
+  price: string;
+  imageSrc: StaticImageData;
   onClose: () => void;
 }
 
@@ -39,13 +41,14 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
 `;
 
-const Modals: React.FC<ModalProps> = ({ isOpen, title, description, onClose }) => {
+const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, onClose }) => {
   if (!isOpen) return null;
   
   return(
     <BackGround>
       <ModalContent>
         <ModalHeader title={title} onClose={onClose} />
+        <Image src={imageSrc} alt={title} layout="responsive" width={500} height={300} />
         <ModalBody>{description}</ModalBody>
         <ModalFooter>
           <button onClick={onClose}>Close</button>
