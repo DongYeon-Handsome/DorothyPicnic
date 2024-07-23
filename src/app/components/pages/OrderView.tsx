@@ -10,10 +10,11 @@ import Sample2 from '../../../../public/Image/Sample2.jpg';
 import Sample3 from '../../../../public/Image/Sample3.jpg';
 import { useState } from "react";
 import Modals from "../organisms/Modals";
+import { StaticImageData } from "next/image";
 
 const cards = [
-  { id: 1, title: 'Sample 1', description: 'description 1', price: '16,000won' },
-  { id: 2, title: 'Sample 2', description: 'description 2', price: '18,000won' },
+  { id: 1, title: 'Sample 1', description: 'description 1', price: '16,000won', imageSrc: Sample1 },
+  { id: 2, title: 'Sample 2', description: 'description 2', price: '18,000won', imageSrc: Sample2 },
 ];
 
 const OrderWrapper = styled.div`
@@ -38,9 +39,9 @@ const Title = styled.h1`
 `;
 
 const OrderView: React.FC = () => {
-  const [selectedCard, setSelectedCard] = useState<{ title: string; description: string; } | null>(null);
+  const [selectedCard, setSelectedCard] = useState<{ title: string; description: string; price: string, imageSrc: StaticImageData } | null>(null);
 
-  const handleCardClick = (card: { title: string; description: string }) => {
+  const handleCardClick = (card: { title: string; description: string; price: string; imageSrc: StaticImageData }) => {
     setSelectedCard(card);
   };
   const handleCloseModal = () => {
@@ -64,7 +65,7 @@ const OrderView: React.FC = () => {
             title={card.title}
             description={card.description}
             price={card.price}
-            imageUrl={""}
+            imageSrc={card.imageSrc}
             onClick={() => handleCardClick(card)}        
           />
         ))}
@@ -73,7 +74,9 @@ const OrderView: React.FC = () => {
             isOpen={!!selectedCard}
             title={selectedCard.title}
             description={selectedCard.description}
-            onClose={handleCloseModal}
+            price={selectedCard.price}
+            imageSrc={selectedCard.imageSrc}
+            onClose={handleCloseModal}          
           />
         )}
       </MenuWrapper>
