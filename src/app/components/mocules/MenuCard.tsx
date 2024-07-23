@@ -1,14 +1,16 @@
 "use client";
 import styled from "styled-components";
+import NextImage, { StaticImageData } from "next/image";
 
 interface MenuCardProps {
   title: string;
   description: string;
   price: string;
-  imageUrl: string;
+  imageSrc: StaticImageData;
+  onClick: () => void;
 }
 
-const MenuCardBox = styled.div`
+const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 18rem;
@@ -19,7 +21,7 @@ const MenuCardBox = styled.div`
   margin: 1rem;
 `;
 
-const Image = styled.img`
+const StyledImage = styled(NextImage)`
   width: 100%;
   height: 13rem;
 `;
@@ -39,14 +41,14 @@ const Price = styled.p`
   font-weight: bold;
 `;
 
-const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageUrl }) => {
+const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageSrc, onClick }) => {
   return(
-    <MenuCardBox>
-      <Image src={imageUrl} alt={title}/>
+    <CardContainer onClick={onClick}>
+      <StyledImage src={imageSrc} alt={title}/>
       <Title>{title}</Title>
       <Description>{description}</Description>
       <Price>{price}</Price>
-    </MenuCardBox>
+    </CardContainer>
   )
 }
 

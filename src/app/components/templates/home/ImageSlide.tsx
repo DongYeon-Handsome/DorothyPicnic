@@ -3,10 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
-import Image from "next/image";
-import Sample1 from "../../../../../public/Image/Sample1.jpg"
-import Sample2 from "../../../../../public/Image/Sample2.jpg";
-import Sample3 from "../../../../../public/Image/Sample3.jpg";
+import Image, { StaticImageData } from "next/image";
 import LeftArrow from "../../../../../public/Image/LeftArrow.svg";
 import RightArrow from "../../../../../public/Image/RightArrow.svg";
 
@@ -18,6 +15,15 @@ interface SliderProps {
   $slideCount?: number;
 }
 
+interface ImageSliderProps {
+  images: { src: StaticImageData, alt: string }[];
+}
+
+const SliderContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+`;
+
 const SliderStyled = styled(Slider)<SliderProps>`
   position: relative;
   width: 100%;
@@ -26,6 +32,21 @@ const SliderStyled = styled(Slider)<SliderProps>`
     opacity: 0;
     display: none;
   }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 80vh;
+`;
+
+const StyledImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Pre = styled.div`
@@ -42,9 +63,9 @@ const NextTo = styled.div`
   position: absolute;
   right: 3%;
   z-index: 3;
-`
+`;
 
-export default function ImageSlide(){
+const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -67,12 +88,16 @@ export default function ImageSlide(){
   };
 
   return(
-    <div>
+    <SliderContainer>
       <SliderStyled {...settings}>
-        <div><Image src={Sample1} height={500} alt="Slide 1" /></div>
-        <div><Image src={Sample2} height={500} alt="Slide 2" /></div>
-        <div><Image src={Sample3} height={500} alt="Slide 3" /></div>
+        {images.map((image, index) => (
+          <ImageContainer key={index}>
+            <StyledImage src={image.src.src} alt={image.alt} />
+          </ImageContainer>
+        ))}
       </SliderStyled>
-    </div>
+    </SliderContainer>
   );
 }
+
+export default ImageSlider;
