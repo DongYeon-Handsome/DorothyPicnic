@@ -10,7 +10,6 @@ const PicnicCards = [
     price: '30,000 won',
     imageSrc: Sample1,
     modalButtonText: '예약하기',
-    modalButtonClick: () => alert('상품이 주문되었습니다.'),
   },
   {
     id: 2,
@@ -19,15 +18,14 @@ const PicnicCards = [
     price: '40,000 won',
     imageSrc: Sample2,
     modalButtonText: '예약하기',
-    modalButtonClick: () => alert('상품이 주문되었습니다.'),
   },
   {
     id: 3,
     title: 'Picnic 3',
     description: 'Picnic Description 3',
+    price: '50,000 won',
     imageSrc: Sample3,
     modalButtonText: '예약하기',
-    modalButtonClick: () => alert('상품이 주문되었습니다.'),
   },
 ];
 

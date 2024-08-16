@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ModalHeader from "../mocules/ModalHeader";
 import Image, { StaticImageData } from "next/image";
 import Button from "../atoms/Button";
+import React from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface ModalProps {
   buttonText?: string;
   buttonClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   buttonHref?: string
+  children?: React.ReactNode;
 }
 
 const BackGround = styled.div`
@@ -46,7 +48,7 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
 `;
 
-const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, onClose, showButton, buttonText, buttonClick, buttonHref }) => {
+const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, onClose, showButton, buttonText, buttonClick, buttonHref, children }) => {
   if (!isOpen) return null;
   
   return(
@@ -54,7 +56,10 @@ const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, on
       <ModalContent>
         <ModalHeader title={title} onClose={onClose} />
         <Image src={imageSrc} alt={title} layout="responsive" width={500} height={300} />
-        <ModalBody>{description}</ModalBody>
+        {!children && (
+          <ModalBody>{description}</ModalBody>
+        )}
+        {children && <ModalBody>{children}</ModalBody>}
         <ModalFooter>
           {showButton && (
             <Button

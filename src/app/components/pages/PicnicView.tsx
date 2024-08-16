@@ -5,8 +5,9 @@ import ImageSlider from "../templates/home/ImageSlide";
 import MenuCard from "../mocules/MenuCard";
 import Modals from "../organisms/Modals";
 import { StaticImageData } from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PicnicCards from "../templates/Cards/PicnicCards";
+import Calender from "../mocules/Calender";
 
 import Sample1 from '../../../../public/Image/Sample1.jpg';
 import Sample2 from '../../../../public/Image/Sample2.jpg';
@@ -35,6 +36,7 @@ const Title = styled.h1`
 
 const PicnicView: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<{ 
+    id: number;
     title: string; 
     description: string; 
     price?: string; 
@@ -45,8 +47,24 @@ const PicnicView: React.FC = () => {
   } | null>(null);
 
   const [showButton, setShowButton] = useState(false);
+  const [showCalender, setShowCalender] = useState(false);
+  const [reservationDate, setReservationDate] = useState<string | null>(null);
+  const [reservedDates, setReservedDates] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchReservedDates = async () => {
+      const response  = await fetch('/api/reserve');
+      const data = await response.json();
+      if(data.success){
+        setReservationDate(data.reservations.map((res: any) => res.date));
+      }
+    };
+
+    fetchReservedDates();
+  }, []);
 
   const handleCardClick = (card: { 
+    id: number;
     title: string; 
     description: string; 
     price?: string; 
@@ -57,16 +75,47 @@ const PicnicView: React.FC = () => {
   }) => {
     setSelectedCard(card);
     setShowButton(true);
+    setShowCalender(false);
   };
   const handleCloseModal = () => {
     setSelectedCard(null);
     setShowButton(false);
+    setShowCalender(false);
   };
+  const handleShowCalender = () => {
+    setShowCalender(true);
+  };
+  const handleDateSelect = async (date: string) => {
+    if(!selectedCard) return;
+    setReservationDate(date);
+    try {
+      const response = await fetch('/api/reserve', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({ date, cardId: selectedCard.id }),
+      });
+
+      const data = await response.json();
+      if(data.success) {
+        alert("Reservation successful");
+      }
+      else{
+        alert("Reservation failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error reserving date: ", error);
+      alert('Error reserving date. Please try again.');
+    }
+  };
+ 
   const images = [
     { src: Sample1, alt: 'Image 1' },
     { src: Sample2, alt: 'Image 2' },
     { src: Sample3, alt: 'Image 3' },
   ];
+
   return(
     <PicnicWrapper>
       <ImageSlider images={images}/>
@@ -80,6 +129,7 @@ const PicnicView: React.FC = () => {
             price={card.price || '0.00won'}
             imageSrc={card.imageSrc}
             onClick={() => handleCardClick(card)}
+            buttonClick={handleShowCalender}
           />
         ))}
         {selectedCard && (
@@ -92,9 +142,16 @@ const PicnicView: React.FC = () => {
             onClose={handleCloseModal}
             showButton={showButton}
             buttonText={selectedCard.modalButtonText}
-            buttonClick={selectedCard.modalButtonClick}
+            buttonClick={handleShowCalender}
             buttonHref={selectedCard.modalButtonHref}
-          />
+          >
+            {showCalender && (
+              <Calender 
+                reservedDates={reservedDates} 
+                onDateSelect={handleDateSelect}
+              />
+            )}
+          </Modals>
         )}
       </ComponentsWrapper>
     </PicnicWrapper>
