@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ModalHeader from "../mocules/ModalHeader";
 import Image, { StaticImageData } from "next/image";
+import Button from "../atoms/Button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,6 +10,10 @@ interface ModalProps {
   price: string;
   imageSrc: StaticImageData;
   onClose: () => void;
+  showButton?: boolean;
+  buttonText?: string;
+  buttonClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  buttonHref?: string
 }
 
 const BackGround = styled.div`
@@ -41,7 +46,7 @@ const ModalFooter = styled.div`
   justify-content: flex-end;
 `;
 
-const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, onClose }) => {
+const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, onClose, showButton, buttonText, buttonClick, buttonHref }) => {
   if (!isOpen) return null;
   
   return(
@@ -51,6 +56,16 @@ const Modals: React.FC<ModalProps> = ({ isOpen, title, description, imageSrc, on
         <Image src={imageSrc} alt={title} layout="responsive" width={500} height={300} />
         <ModalBody>{description}</ModalBody>
         <ModalFooter>
+          {showButton && (
+            <Button
+              width={120}
+              height={40}
+              fontSize={14}
+              onClick={buttonClick}
+              href={buttonHref}
+            >
+              {buttonText}
+            </Button>)}
           <button onClick={onClose}>Close</button>
         </ModalFooter>
       </ModalContent>

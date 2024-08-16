@@ -11,11 +11,7 @@ import Sample3 from '../../../../public/Image/Sample3.jpg';
 import { useState } from "react";
 import Modals from "../organisms/Modals";
 import { StaticImageData } from "next/image";
-
-const cards = [
-  { id: 1, title: 'Sample 1', description: 'description 1', price: '16,000won', imageSrc: Sample1 },
-  { id: 2, title: 'Sample 2', description: 'description 2', price: '18,000won', imageSrc: Sample2 },
-];
+import OrderCards from "../templates/Cards/OrderCards";
 
 const OrderWrapper = styled.div`
   position: flex;
@@ -39,7 +35,7 @@ const Title = styled.h1`
 `;
 
 const OrderView: React.FC = () => {
-  const [selectedCard, setSelectedCard] = useState<{ title: string; description: string; price: string, imageSrc: StaticImageData } | null>(null);
+  const [selectedCard, setSelectedCard] = useState<{ title: string; description: string; price: string; imageSrc: StaticImageData } | null>(null);
 
   const handleCardClick = (card: { title: string; description: string; price: string; imageSrc: StaticImageData }) => {
     setSelectedCard(card);
@@ -59,14 +55,15 @@ const OrderView: React.FC = () => {
       <ImageSlider images={images}/>
       <Title>Menu</Title>
       <MenuWrapper>
-        {cards.map((card) => (
+        {OrderCards.map((card) => (
           <MenuCard 
             key={card.id}
             title={card.title}
             description={card.description}
             price={card.price}
             imageSrc={card.imageSrc}
-            onClick={() => handleCardClick(card)}        
+            onClick={() => handleCardClick(card)}
+            //buttonText={card.modalButtonText || "Default Text"}        
           />
         ))}
         {selectedCard && (

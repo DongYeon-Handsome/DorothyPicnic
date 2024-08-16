@@ -44,6 +44,7 @@ const Header: React.FC = () => {
       <Nav>
         <StyledLink href='/menu'>Menu</StyledLink>
         <StyledLink href='/order'>Order</StyledLink>
+        <StyledLink href='/picnic'>Picnic</StyledLink>
       </Nav>
     </HeaderBox>
   );

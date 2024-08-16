@@ -1,13 +1,17 @@
 "use client";
 import styled from "styled-components";
 import NextImage, { StaticImageData } from "next/image";
+import Button from "../atoms/Button";
 
 interface MenuCardProps {
   title: string;
   description: string;
-  price: string;
+  price?: string;
   imageSrc: StaticImageData;
   onClick: () => void;
+  buttonText?: string;
+  buttonClick?: (event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
+  buttonHref?: string;
 }
 
 const CardContainer = styled.div`
@@ -19,6 +23,8 @@ const CardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0,1);
   margin: 1rem;
+  cursor: pointer;
+  overflow: hidden;
 `;
 
 const StyledImage = styled(NextImage)`
@@ -41,15 +47,20 @@ const Price = styled.p`
   font-weight: bold;
 `;
 
-const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageSrc, onClick }) => {
+const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageSrc, onClick, buttonText, buttonClick, buttonHref }) => {
   return(
     <CardContainer onClick={onClick}>
       <StyledImage src={imageSrc} alt={title}/>
       <Title>{title}</Title>
       <Description>{description}</Description>
-      <Price>{price}</Price>
+      {price && <Price>{price}</Price>}
+      {buttonText && (
+        <Button width={120} height={40} fontSize={14} onClick={buttonClick} href={buttonHref}>
+          {buttonText}
+        </Button>
+      )}
     </CardContainer>
-  )
+  );
 }
 
 export default MenuCard;
