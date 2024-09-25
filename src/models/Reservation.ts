@@ -1,12 +1,16 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 export interface IReservation extends Document {
+  name: string;
+  phone: string;
   date: string;
   cardId: number;
 }
 
 const ReservationSchema: Schema = new Schema({
-  data: { type: String, require: true },
+  name: { type: String, required: true },
+  phone: { type: String, require: true },
+  date: { type: String, require: true },
   cardId: { type: Number, require: true },
 });
 
