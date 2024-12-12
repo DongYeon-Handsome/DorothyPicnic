@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 const CardLayout = styled.div`
-  justify-content: space-between;
-  display: flex;
-  margin: auto;
-  margin-bottom: 5rem;
-  width: 80%;
-  height: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
 `;
 
 export default CardLayout;

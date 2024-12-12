@@ -17,11 +17,10 @@ interface MenuCardProps {
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 18rem;
-  height: 20rem;
-  background: #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0,1);
+  width: 20rem;
+  height: auto;
+  background: transparent;
+  border: none;
   margin: 1rem;
   cursor: pointer;
   overflow: hidden;
@@ -29,7 +28,7 @@ const CardContainer = styled.div`
 
 const StyledImage = styled(NextImage)`
   width: 100%;
-  height: 13rem;
+  height: 15rem;
 `;
 
 const Title = styled.h2`
@@ -47,11 +46,17 @@ const Price = styled.p`
   font-weight: bold;
 `;
 
+const MenuHr = styled.hr`
+  width: 100%;
+  color: #e6e6e6;
+`;
+
 const MenuCard: React.FC<MenuCardProps> = ({ title, description, price, imageSrc, onClick, buttonText, buttonClick, buttonHref }) => {
   return(
     <CardContainer onClick={onClick}>
       <StyledImage src={imageSrc} alt={title}/>
       <Title>{title}</Title>
+      <MenuHr />
       <Description>{description}</Description>
       {price && <Price>{price}</Price>}
       {buttonText && (
