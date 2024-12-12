@@ -10,99 +10,125 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const MenuTypeWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border: none;
-  border-bottom: 2px solid;
-  border-bottom-color: #E6E6E6;
+const MenuTypeContainer = styled.div`
+  display: inline-block;
+  width: 80%;
+  height: auto;
+  border: 1.5px solid #e6e6e6;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  width: 100%;
-  height: auto;
+`;
+
+const MenuTypeTitle = styled.div`
+  font-size: 1.5rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  padding-bottom: 1rem;
+  color: #000000;
+  border: none;
+  border-bottom: 1.5px solid #e6e6e6;
 `;
 
 const MenuTypeNav = styled.nav`
   display: flex;
   list-style: none;
-  margin-left: auto;
-  margin-right: 4rem;
+  align-items: center;
+  gap: 15px;
+  margin-top: 1rem;
+  margin-left: 3rem;
 `;
 
-const MenuType = styled.button`
-  width: 7rem;
-  background-color: transparent;
-  border: none;
-  color: #000000;
-  font-size: 1.5rem;
+const MenuType = styled.button<{ isActive: boolean }>`
+  position: relative;
+  width: 90px;
+  padding: 10px 0;
+  background-color: ${({ isActive }) => (isActive ? "#F5A9E1": "transparent")};
+  text-align: center;
+  white-space: nowrap;
+  border: 1.5px solid #e6e6e6;
+  border-radius: 30px;
+  color: ${({ isActive }) => (isActive ? "#FFFFFF": "#000000")};
+  font-size: 1rem;
   &:hover{
-    color: #F5A9E1;
+    background-color: #F5A9E1;
+    color: #FFFFFF;
     cursor: pointer;
   }
 `;
 
-const Title = styled.h1`
-  text-align: center;
-  font-size: 3rem;
-  color: #000000;
-  margin-top: 3rem;
-`;
-
 const MainContent = styled.div`
-  flex: 1;
-  position: relative;
-`;
-
-const CardView = styled.div`
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
   width: 100%;
-  height: 100%;
-  transition: opacity 0.5 ease;
-  &.active {
-    opacity: 1;
-    z-index: 1;
-  }
-  &.hidden {
-    opacity: 0;
-    z-index: 0;
-  }
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
 `;
 
-const CoffeeMenu = dynamic(() => import('../organisms/Menu/CoffeeMenu'));
-const DrinkMenu = dynamic(() => import('../organisms/Menu/DrinkMenu'));
-const FinancierMenu = dynamic(() => import('../organisms/Menu/FinancierMenu'));
-const DessertMenu = dynamic(() => import('../organisms/Menu/DessertMenu'));
+const CardView = styled.div<{ isActive: boolean }>`
+  display: ${({ isActive }) => (isActive ? "block" : "none")};
+  width: 100%;
+  height: auto;
+`;
+
+const CoffeeMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/CoffeeMenu'));
+const NonCoffeeMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/NonCoffeeMenu'));
+const TeaMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/TeaMenu'));
+const AdeMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/AdeMenu'));
+const SmootheMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/SmootheMenu'));
+const FinancierMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/FinancierMenu'));
+const DessertMenu = dynamic(() => import('../organisms/Menu/MenuLayouts/DessertMenu'));
+
+const menuList = [
+  { id: "coffee", name: "커피", component: <CoffeeMenu /> },
+  { id: "noncoffee", name: "논커피", component: <NonCoffeeMenu /> },
+  { id: "tea", name: "티", component: <TeaMenu /> },
+  { id: "ade", name: "에이드", component: <AdeMenu /> },
+  { id: "smoothe", name: "스무디", component: <SmootheMenu /> },
+  { id: "financier", name: "휘낭시에", component: <FinancierMenu /> },
+  { id: "dessert", name: "디저트", component: <DessertMenu /> },
+];
 
 const MenuView: React.FC = () => {
   const [view, setView] = useState('coffee');
 
   return(
     <Container>
-      <MenuTypeWrapper>
+      <MenuTypeContainer>
+        <MenuTypeTitle>메뉴 분류</MenuTypeTitle>
         <MenuTypeNav>
-          <MenuType onClick={() => setView('coffee')}>Coffee</MenuType>
-          <MenuType onClick={() => setView('drink')}>Drink</MenuType>
-          <MenuType onClick={() => setView('financier')}>Financier</MenuType>
-          <MenuType onClick={() => setView('dessert')}>Dessert</MenuType>
+          {menuList.map((menu) => (
+            <MenuType 
+              key={menu.id}
+              isActive={view === menu.id}
+              onClick={() => setView(menu.id)}
+            >
+              {menu.name}
+            </MenuType>
+          ))}
         </MenuTypeNav>
-      </MenuTypeWrapper>
+      </MenuTypeContainer>
+
       <MainContent>
-        <Title>Test</Title>
-        <CardView className={view == 'coffee' ? 'active' : 'hidden'}>
-          <CoffeeMenu />
+       {menuList.map((menu) => (
+        <CardView
+          key={menu.id}
+          isActive={view === menu.id}
+        >
+          {menu.component}
         </CardView>
-        <CardView className={view == 'drink' ? 'active' : 'hidden'}>
-          <DrinkMenu />
-        </CardView>
-        <CardView className={view == 'financier' ? 'active' : 'hidden'}>
-          <FinancierMenu />
-        </CardView>
-        <CardView className={view == 'dessert' ? 'active' : 'hidden'}>
-          <DessertMenu />
-        </CardView>
+       ))}
       </MainContent>
     </Container>
-  )
-}
+  );
+};
 
 export default MenuView;
