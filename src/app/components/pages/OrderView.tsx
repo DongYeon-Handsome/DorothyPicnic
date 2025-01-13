@@ -73,7 +73,8 @@ const OrderView: React.FC = () => {
             description={selectedCard.description}
             price={selectedCard.price}
             imageSrc={selectedCard.imageSrc}
-            onClose={handleCloseModal}          
+            onClose={handleCloseModal}
+            showButton={true}          
           />
         )}
       </MenuWrapper>
