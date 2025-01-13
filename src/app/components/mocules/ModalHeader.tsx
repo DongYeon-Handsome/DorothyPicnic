@@ -10,11 +10,7 @@ const Header = styled.div`
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-`;
-
-const Title = styled.div`
-  margin: 0;
+  //border-bottom: 1px solid #ddd;
 `;
 
 const CloseButton = styled.div`
@@ -24,11 +20,10 @@ const CloseButton = styled.div`
   cursor: pointer;
 `;
 
-const ModalHeader: React.FC<ModalHeaderProps> = ({ title, onClose }) => {
+const ModalHeader: React.FC<ModalHeaderProps> = ({ onClose }) => {
   return(
     <Header>
-      <Title>{title}</Title>
-      <CloseButton onClick={onClose}></CloseButton>
+      <CloseButton onClick={onClose}>Close</CloseButton>
     </Header>
   );
 };
