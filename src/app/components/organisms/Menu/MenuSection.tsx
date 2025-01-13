@@ -45,7 +45,7 @@ const MenuSection: React.FC<MenuSelectionProps> = ({ menuData }) => {
           description={selectedCard.description}
           price={selectedCard.price}
           imageSrc={selectedCard.imageSrc}
-          showButton
+          showButton={false}
           buttonText="Order Now"
           buttonClick={() => alert(`Ordering ${selectedCard.title}`)}
         />
